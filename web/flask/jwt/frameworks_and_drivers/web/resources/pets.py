@@ -1,5 +1,6 @@
-from flask_restful import Resource, reqparse
 from domain.app_rules.use_cases import pets as pets_svc
+from flask_restful import Resource, marshal, reqparse
+from ..models.pet import pet
 
 
 class Pets(Resource):
@@ -38,7 +39,7 @@ class Pets(Resource):
         """
         items, count = pets_svc.get_all()
         return {
-            'data': items,
+            'data':  marshal(items, pet),
             'total': count
         }
 
